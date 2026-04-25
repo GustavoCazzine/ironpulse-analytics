@@ -1,10 +1,12 @@
 from domain.analyzer import RiskAnalyzer
+from infrastructure.data_logger import CSVLogger
 
 
 class FleetManager:
     def __init__(self):
         self._equipments = {}
         self._analyzer = RiskAnalyzer()
+        self._csv_logger = CSVLogger("database.csv")
 
     def register_equipment(self, equipment):
         if equipment.equipment_id in self._equipments:
@@ -22,10 +24,13 @@ class FleetManager:
             return False
         
         equipment = self._equipments[id_equipment]
-        self._analyzer.evaluate_telemetry(equipment, telemetry_read)
+        has_alert = self._analyzer.evaluate_telemetry(equipment, telemetry_read)
+        self._csv_logger.log_telemetry(telemetry_read, has_alert)
 
     def get_fleet_status(self):
-        cont_operacional, cont_alerta, cont_manutencao = 0
+        cont_operacional = 0
+        cont_alerta = 0
+        cont_manutencao = 0
         for equipment in self._equipments.values():
             match equipment.status:
                 case "OPERACIONAL":
