@@ -1,20 +1,14 @@
 from domain.equipment import Equipment
-from domain.analyzer import RiskAnalyzer
+from domain.fleet import FleetManager
 from domain.telemetry import TelemetryRead
 
-e1 = Equipment("TR-99", "Trator", 90)
-analyzer = RiskAnalyzer()
+manager = FleetManager()
+if manager.register_equipment(Equipment("ESC-01", "Escavadeira", 100)):
+    print("Equipamento adicionado com sucesso!")
+if manager.register_equipment(Equipment("CAM-99", "Caminhão Articulado", 90)):
+    print("Equipamento adicionado com sucesso!")
 
-t1 = TelemetryRead(e1.equipment_id, 85, 4000)
+manager.process_telemetry(TelemetryRead("CAM-99", 95, 5000))
+manager.process_telemetry(TelemetryRead("ESC-01", 95, 1000))
 
-analyzer.evaluate_telemetry(e1, t1)
-
-print(e1.status)
-
-t1 = TelemetryRead(e1.equipment_id, 92, 4000)
-
-analyzer.evaluate_telemetry(e1, t1)
-
-print(e1.status)
-
-print(analyzer.alerts_log)
+print(manager.get_fleet_status())
