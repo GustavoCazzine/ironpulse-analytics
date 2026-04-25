@@ -20,6 +20,8 @@ O backend foi construído em **Python puro**, com forte foco em **Programação 
 * **Injeção de Dependência:** O módulo `RiskAnalyzer` opera de forma desacoplada, recebendo as instâncias de equipamento e leitura como argumentos.
 * **Estrutura de Domínio:** Entidades claras modelando o mundo real (`Equipment`, `TelemetryRead`, `FleetManager`).
 
+
+
 ## ⚙️ Como Executar (Setup Local)
 
 1. Clone este repositório:

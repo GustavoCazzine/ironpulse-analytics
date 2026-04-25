@@ -1,5 +1,5 @@
-from domain.analyzer import RiskAnalyzer
-from infrastructure.data_logger import CSVLogger
+from .analyzer import RiskAnalyzer
+from ..infrastructure.data_logger import CSVLogger
 
 
 class FleetManager:
@@ -40,4 +40,4 @@ class FleetManager:
                 case "MANUTENCAO":
                     cont_manutencao +=1
 
-        return f"Equipamentos em Operacional: {cont_operacional}\nEquipamentos em Alerta: {cont_alerta}\nEquipamentos em Manutenção: {cont_manutencao}"
+        return {"operacional" : cont_operacional, "alerta": cont_alerta, "manutencao" : cont_manutencao}
